@@ -6,9 +6,10 @@ from flask_cors import CORS
 import requests
 
 # Import our core software logic
-from number_utils import is_prime, is_armstring, is_perfect, digit_sum, get_parity
+from number_utils import is_prime, is_armstrong, is_perfect, digit_sum, get_parity
 
 app = Flask(__name__)
+app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 CORS(app)
 
 @app.route('/api/classify-number', methods=['GET'])
@@ -42,7 +43,7 @@ def classify_number():
     fun_fact = ""
     try:
          fact_response = requests.get(f"http://numbersapi.com/{number}/math?json", timeout=5)
-        if fact_response.status_code == 200:
+         if fact_response.status_code == 200:
             fact_data = fact_response.json()
             fun_fact = fact_data.get("text", "")
     except Exception:
